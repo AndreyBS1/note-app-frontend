@@ -4,7 +4,10 @@ import { INote } from 'src/shared/api'
 import * as api from './api'
 
 export const $notes = createStore<INote[]>([])
+export const $selectedNote = createStore<INote | null>(null)
 
-export const getNotesFx = createEffect(api.getNotes)
-export const saveNotesFx = createEffect(api.saveNotes)
-export const clearNotesFx = createEffect(api.clearNotes)
+export const getAllNotesFx = createEffect(api.getAllNotes)
+export const getNoteFx = createEffect(api.getNote)
+export const addNoteFx = createEffect(api.addNote)
+export const updateNoteFx = createEffect(api.updateNote)
+export const deleteNoteFx = createEffect(api.deleteNote)
