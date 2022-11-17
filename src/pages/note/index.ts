@@ -1,1 +1,1 @@
-export * from './ui'
+export { Note as NotePage } from './ui'
