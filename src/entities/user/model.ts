@@ -4,7 +4,10 @@ import { IUser } from 'src/shared/api'
 import * as api from './api'
 
 export const $users = createStore<IUser[]>([])
+export const $selectedUser = createStore<IUser | null>(null)
 
-export const getUsersFx = createEffect(api.getUsers)
-export const saveUsersFx = createEffect(api.saveUsers)
-export const clearUsersFx = createEffect(api.clearUsers)
+export const getAllUsersFx = createEffect(api.getAllUsers)
+export const getUserFx = createEffect(api.getUser)
+export const addUserFx = createEffect(api.addUser)
+export const updateUserFx = createEffect(api.updateUser)
+export const deleteUserFx = createEffect(api.deleteUser)
