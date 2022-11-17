@@ -14,6 +14,13 @@ export type INote = {
   createdAt: number
 }
 
+export type ICreateNote = {
+  title: string
+  text: string
+  tagIds: string[]
+  authorId: string
+}
+
 export type ITag = {
   id: string
   name: string
