@@ -1,3 +1,5 @@
+import './app.scss'
+
 import { Route, Routes } from 'react-router-dom'
 
 import { AuthPage } from 'src/pages/auth'

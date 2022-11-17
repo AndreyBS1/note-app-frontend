@@ -1,0 +1,19 @@
+@import '../shared/styles/variables.scss';
+@import '../shared/styles/mixins.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 3vw;
+
+  @include tablet {
+    font-size: 2vw;
+  }
+
+  @include desktop {
+    font-size: 1vw;
+  }
+}
