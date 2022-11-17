@@ -9,6 +9,7 @@
   padding: 2rem 0;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 .logoText {
@@ -18,4 +19,10 @@
 .searchBarContainer {
   margin: 0 3rem;
   flex-grow: 1;
+}
+
+.button {
+  &:not(:last-child) {
+    margin-right: 1.5rem;
+  }
 }
