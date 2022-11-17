@@ -7,10 +7,7 @@ sample({
   clock: pageLoadEv,
   target: UserModel.getAllUsersFx,
 })
-sample({
-  clock: UserModel.getAllUsersFx.doneData,
-  target: UserModel.$users,
-})
+UserModel.$users.on(UserModel.getAllUsersFx.doneData, (_, users) => users)
 export const $isUsersLoading = UserModel.getAllUsersFx.pending
 
 export const createUserEv = createEvent<string>()
@@ -18,8 +15,5 @@ sample({
   clock: createUserEv,
   target: UserModel.addUserFx,
 })
-sample({
-  clock: UserModel.addUserFx.doneData,
-  target: UserModel.$users,
-})
+UserModel.$users.on(UserModel.addUserFx.doneData, (_, users) => users)
 export const $isUserCreating = UserModel.addUserFx.pending
