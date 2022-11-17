@@ -2,6 +2,8 @@ import { useEvent, useStore } from 'effector-react'
 import { useEffect } from 'react'
 import { NoteModel } from 'src/entities/note'
 import { UserModel } from 'src/entities/user'
+import { Footer } from 'src/widgets/footer/ui'
+import { Header } from 'src/widgets/header/ui'
 
 import * as model from './model'
 
@@ -29,7 +31,8 @@ export function Main() {
 
   return (
     <>
-      <header>Header</header>
+      <Header />
+
       <main>
         {notes.length ? (
           <div>Notes list</div>
@@ -37,7 +40,8 @@ export function Main() {
           <div>You don't have notes yet</div>
         )}
       </main>
-      <footer>Footer</footer>
+
+      <Footer />
     </>
   )
 }
