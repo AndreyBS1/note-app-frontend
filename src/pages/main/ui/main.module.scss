@@ -1,0 +1,14 @@
+.contentContainer {
+  flex-grow: 1;
+}
+
+.empty {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emptyText {
+  margin-bottom: 10rem;
+}
