@@ -14,8 +14,6 @@ NoteModel.$selectedNote.on(
 )
 export const $isNoteLoading = NoteModel.getNoteFx.pending
 
-export const $isNewNote = NoteModel.$selectedNote.map((note) => note == null)
-
 export const createNoteEv = createEvent<ICreateNote>()
 sample({
   clock: createNoteEv,
