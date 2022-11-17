@@ -6,6 +6,12 @@
   padding: 0;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   font-size: 3vw;
 
@@ -16,4 +22,14 @@ html {
   @include desktop {
     font-size: 1vw;
   }
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
 }
