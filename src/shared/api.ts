@@ -24,7 +24,7 @@ export type ICreateNote = {
 export type ITag = {
   id: string
   name: string
-  notesIds: string[]
+  noteIds: string[]
 }
 
 export const apiService = {
