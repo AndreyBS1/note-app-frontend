@@ -1,14 +1,13 @@
-import { useNavigate } from 'react-router-dom'
-
 import { Container } from 'src/shared/ui/container'
 
+import { useCreateNote } from '../model'
 import styles from './header.module.scss'
 
 export function Header() {
-  const navigate = useNavigate()
+  const { handleCreateNote, isNoteCreating } = useCreateNote()
 
-  const handleCreateClick = () => {
-    navigate('/note/new')
+  if (isNoteCreating) {
+    return <div>Loading...</div>
   }
 
   return (
@@ -19,7 +18,7 @@ export function Header() {
             <h1 className={styles.logoText}>notes</h1>
           </div>
           <div className={styles.searchBarContainer}>Search bar</div>
-          <button className={styles.button} onClick={handleCreateClick}>
+          <button className={styles.button} onClick={handleCreateNote}>
             Create note
           </button>
           <button className={styles.button}>Side menu</button>
