@@ -1,0 +1,45 @@
+.userCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoContainer {
+  margin-bottom: 3rem;
+}
+
+.name {
+  font-size: 3rem;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  width: max-content;
+  font-size: 2rem;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background-color: transparent;
+  transition: all ease 0.3s;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
+.login {
+  color: var(--primary-color);
+  &:hover {
+    border-color: var(--primary-color);
+  }
+}
+
+.delete {
+  color: red;
+  &:hover {
+    border-color: red;
+  }
+}
