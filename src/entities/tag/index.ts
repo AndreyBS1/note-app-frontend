@@ -1,1 +1,1 @@
-export * as TagModel from './model'
+export * as TagModel from './tag.model'

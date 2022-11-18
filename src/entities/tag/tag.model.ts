@@ -1,7 +1,7 @@
 import { createEffect, createStore } from 'effector'
 import { ITag } from 'src/shared/api'
 
-import * as api from './api'
+import * as api from './tag.api'
 
 export const $tags = createStore<ITag[]>([])
 export const $selectedTag = createStore<ITag | null>(null)
