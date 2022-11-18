@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Container } from 'src/shared/ui/container'
 import { Footer } from 'src/widgets/footer/ui'
 import { Header } from 'src/widgets/header/ui'
@@ -20,7 +21,21 @@ export function Main() {
         <Container>
           {notes.length ? (
             <div className={styles.contentContainer}>
-              <div>Notes list</div>
+              {notes.map((note) => (
+                <Link to={`/note/${note.id}`}>
+                  <div
+                    style={{
+                      minHeight: '10rem',
+                      minWidth: '5rem',
+                      color: 'white',
+                      backgroundColor: 'black',
+                    }}
+                  >
+                    <h3>{note.title}</h3>
+                    <p>{note.text}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           ) : (
             <div className={styles.empty}>
