@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Container } from 'src/shared/ui/container'
 
 import { useCreateNote } from '../model'
@@ -14,9 +15,9 @@ export function Header() {
     <header className={styles.header}>
       <Container>
         <div className={styles.contentContainer}>
-          <div className={styles.logo}>
+          <Link to="/main" className={styles.logo}>
             <h1 className={styles.logoText}>notes</h1>
-          </div>
+          </Link>
           <div className={styles.searchBarContainer}>Search bar</div>
           <button className={styles.button} onClick={handleCreateNote}>
             Create note
