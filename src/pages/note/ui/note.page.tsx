@@ -1,19 +1,37 @@
-import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { Container } from 'src/shared/ui/container'
 import { Footer } from 'src/widgets/footer/ui'
 import { Header } from 'src/widgets/header/ui'
 
-import { useForm, useNote } from '../model'
+import { useDeleteNote, useNote, useNoteForm, useUpdateNote } from '../model'
 import styles from './note.module.scss'
 
 export function Note() {
   const { noteId } = useParams()
   const { note, isNoteLoading } = useNote(noteId)
-  const { form, handleChange } = useForm()
+  const { form, handleChange } = useNoteForm()
+  const { handleUpdateNote } = useUpdateNote()
+  const { handleDeleteNote, isNoteDeleting } = useDeleteNote()
 
-  if (isNoteLoading) {
+  useEffect(() => {
+    handleUpdateNote(form)
+  }, [form])
+
+  const navigate = useNavigate()
+
+  const handleDeleteClick = () => {
+    handleDeleteNote(form.id)
+    navigate('/')
+  }
+
+  if (isNoteLoading || isNoteDeleting) {
     return <div>Loading...</div>
+  }
+
+  if (!isNoteLoading && note == null) {
+    return <div>Such note does not exist</div>
   }
 
   return (
@@ -31,11 +49,12 @@ export function Note() {
                 className={styles.input}
                 onChange={handleChange}
               />
-              <button>Delete</button>
+              <button onClick={handleDeleteClick}>Delete</button>
             </div>
             <div className={styles.textContainer}>
-              <textarea
+              <input
                 name="text"
+                type="text"
                 placeholder="Text"
                 className={styles.input}
                 onChange={handleChange}

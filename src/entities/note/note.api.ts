@@ -36,7 +36,7 @@ export async function addNote(newNote: INote): Promise<INote[]> {
   return newNotes
 }
 
-export async function updateNote(updatedNote: INote): Promise<INote[]> {
+export async function updateNote(updatedNote: INote): Promise<INote> {
   const notes = await apiService.get<INote[]>(NOTES_KEY)
   if (notes == null) {
     throw new Error('Seems notes does not exist')
@@ -50,7 +50,7 @@ export async function updateNote(updatedNote: INote): Promise<INote[]> {
   })
 
   await apiService.save(NOTES_KEY, updatedNotes)
-  return updatedNotes
+  return updatedNote
 }
 
 export async function deleteNote(noteId: string): Promise<INote[]> {

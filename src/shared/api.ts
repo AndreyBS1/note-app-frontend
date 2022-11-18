@@ -10,7 +10,6 @@ export type INote = {
   title: string
   text: string
   tagIds: string[]
-  authorId: string
   createdAt: number
 }
 
