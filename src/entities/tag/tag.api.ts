@@ -1,9 +1,12 @@
 import { apiService, ITag } from 'src/shared/api'
 import { TAGS_KEY } from 'src/shared/config'
-import { createUid } from 'src/shared/lib'
 
-export function getAllTags(): Promise<ITag[] | null> {
-  return apiService.get<ITag[]>(TAGS_KEY)
+export async function getAllTags(): Promise<ITag[]> {
+  const tags = await apiService.get<ITag[]>(TAGS_KEY)
+  if (tags == null) {
+    return []
+  }
+  return tags
 }
 
 export async function getTag(tagId: string): Promise<ITag> {
@@ -20,17 +23,11 @@ export async function getTag(tagId: string): Promise<ITag> {
   return foundedTag
 }
 
-export async function addTag(
-  name: string,
-  noteIds: string[] = []
-): Promise<ITag[]> {
-  const id = createUid()
-  const newTag: ITag = { id, name, noteIds }
-
+export async function addTag(newTag: ITag): Promise<ITag[]> {
   const tags = await apiService.get<ITag[]>(TAGS_KEY)
 
   const newTags: ITag[] = []
-  if (tags !== null) {
+  if (tags != null) {
     newTags.push(...tags)
   }
   newTags.push(newTag)
