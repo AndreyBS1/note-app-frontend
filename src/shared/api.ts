@@ -31,19 +31,19 @@ export const apiService = {
   /**
    * Returns array of items from local storage
    */
-  get: async <T>(localStorageKey: string): Promise<T[]> => {
+  get: async <T>(localStorageKey: string): Promise<T | null> => {
     const source = localStorage.getItem(localStorageKey)
     await wait()
     if (source) {
       return JSON.parse(source)
     }
-    return []
+    return null
   },
 
   /**
    * Sets array of items in local storage
    */
-  save: async <T>(localStorageKey: string, item: T[]): Promise<void> => {
+  save: async <T>(localStorageKey: string, item: T): Promise<void> => {
     localStorage.setItem(localStorageKey, JSON.stringify(item))
     await wait()
   },
