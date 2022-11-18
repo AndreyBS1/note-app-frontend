@@ -1,1 +1,1 @@
-export * as NoteModel from './model'
+export * as NoteModel from './note.model'
