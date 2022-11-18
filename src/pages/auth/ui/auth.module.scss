@@ -1,0 +1,29 @@
+.contentContainer {
+  flex-grow: 1;
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.titleContainer {
+  padding: 3rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-right: 1px solid var(--secondary-color);
+}
+
+.title {
+  font-size: 6rem;
+}
+
+.highlightedText {
+  color: var(--primary-color);
+}
+
+.userContainer {
+  padding: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
