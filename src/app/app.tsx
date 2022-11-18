@@ -9,8 +9,8 @@ import { NotePage } from 'src/pages/note'
 export function App() {
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/auth" element={<AuthPage />} />
+      <Route path="/" element={<AuthPage />} />
+      <Route path="/main" element={<MainPage />} />
       <Route path="/note/:id" element={<NotePage />} />
     </Routes>
   )
