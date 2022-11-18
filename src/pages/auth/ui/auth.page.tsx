@@ -1,12 +1,15 @@
+import { useNavigate } from 'react-router-dom'
 import { useCreateUser, useUser, useUserForm } from '../model'
 
 export function Auth() {
+  const navigate = useNavigate()
   const { user, isUsersLoading } = useUser()
   const { form, handleChange } = useUserForm()
   const { handleCreateUser, isUserCreating } = useCreateUser()
 
   const handleSubmit = () => {
     handleCreateUser(form.name)
+    navigate('/main')
   }
 
   if (isUsersLoading) {

@@ -31,7 +31,7 @@ export function useCreateNote() {
       createdAt: new Date().getTime(),
     }
     createNote(newNote)
-    navigate(`note/${id}`)
+    navigate(`/note/${id}`)
   }
 
   const isNoteCreating = useStore($isNoteCreating)
