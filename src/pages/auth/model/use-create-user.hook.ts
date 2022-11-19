@@ -9,6 +9,7 @@ sample({
   clock: createUserEv,
   target: UserModel.createUserFx,
 })
+
 UserModel.$user.on(UserModel.createUserFx.doneData, (_, user) => user)
 
 const $isUserCreating = UserModel.createUserFx.pending

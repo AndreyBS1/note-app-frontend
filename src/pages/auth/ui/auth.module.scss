@@ -27,3 +27,31 @@
   justify-content: flex-start;
   align-items: center;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.input {
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+  font-size: 1.5rem;
+  border: none;
+  border-bottom: 2px solid var(--secondary-color);
+  background-color: transparent;
+
+  &:active,
+  &:focus {
+    border-color: var(--dark-color);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
