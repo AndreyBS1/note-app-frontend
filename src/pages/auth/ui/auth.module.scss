@@ -10,7 +10,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border-right: 1px solid var(--secondary-color);
+  border-right: 1px solid var(--secondary-light);
 }
 
 .title {
@@ -18,7 +18,7 @@
 }
 
 .highlightedText {
-  color: var(--primary-color);
+  color: var(--primary-light);
 }
 
 .userContainer {
@@ -43,7 +43,7 @@
   padding: 0.5rem 0;
   font-size: 1.5rem;
   border: none;
-  border-bottom: 2px solid var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-light);
   background-color: transparent;
 
   &:active,
