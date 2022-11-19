@@ -1,6 +1,21 @@
+@import '../../styles/mixins.scss';
+
 .container {
   flex-grow: 1;
-  max-width: 1500px;
-  padding: 0 30px;
+  padding: 10px;
   display: flex;
+
+  @include tablet {
+    padding: 0 20px;
+  }
+
+  @include desktop {
+    max-width: 1060px;
+    padding: 0 30px;
+  }
+
+  @include largeDesktop {
+    max-width: 1500px;
+    padding: 0 30px;
+  }
 }
