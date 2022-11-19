@@ -39,7 +39,7 @@ export async function updateNote(updatedNote: INote): Promise<void> {
   await apiService.save(NOTES_KEY, updatedNotes)
 }
 
-export async function deleteNote(noteId: string): Promise<void> {
+export async function deleteNote(noteId: string): Promise<INote[]> {
   const notes = await apiService.get<INote[]>(NOTES_KEY)
   if (notes == null) {
     throw new Error('Seems notes does not exist')
@@ -48,6 +48,8 @@ export async function deleteNote(noteId: string): Promise<void> {
   const updatedNotes = notes.filter((note) => note.id !== noteId)
 
   await apiService.save(NOTES_KEY, updatedNotes)
+
+  return updatedNotes
 }
 
 export function clearNotes() {

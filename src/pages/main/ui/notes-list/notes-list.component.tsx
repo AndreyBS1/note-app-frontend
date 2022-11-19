@@ -1,6 +1,8 @@
 import { NoteCard } from 'src/entities/note'
 import { INote } from 'src/shared/api'
 
+import { useDeleteNote } from '../../model'
+
 import styles from './notes-list.module.scss'
 
 interface INotesList {
@@ -10,12 +12,14 @@ interface INotesList {
 export function NotesList(props: INotesList) {
   const { notes } = props
 
+  const { handleDeleteNote } = useDeleteNote()
+
   return (
     <>
       {notes.length ? (
         <div className={styles.list}>
           {notes.map((note) => (
-            <NoteCard key={note.id} note={note} />
+            <NoteCard key={note.id} note={note} onDelete={handleDeleteNote} />
           ))}
         </div>
       ) : (

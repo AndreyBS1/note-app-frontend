@@ -1,5 +1,5 @@
 import { createEvent, sample } from 'effector'
-import { useEvent, useStore } from 'effector-react'
+import { useEvent } from 'effector-react'
 
 import { NoteModel } from 'src/entities/note'
 
@@ -10,11 +10,10 @@ sample({
   target: NoteModel.deleteNoteFx,
 })
 
-const $isNoteDeleting = NoteModel.deleteNoteFx.pending
+NoteModel.$notes.on(NoteModel.deleteNoteFx.doneData, (_, notes) => notes)
 
 export function useDeleteNote() {
   const handleDeleteNote = useEvent(deleteNoteEv)
-  const isNoteDeleting = useStore($isNoteDeleting)
 
-  return { handleDeleteNote, isNoteDeleting }
+  return { handleDeleteNote }
 }
