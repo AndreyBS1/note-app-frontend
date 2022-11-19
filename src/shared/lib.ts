@@ -15,10 +15,14 @@ export function createUid(): string {
   return new Date().getTime().toString()
 }
 
+type IChangeEvent =
+  | ChangeEvent<HTMLInputElement>
+  | ChangeEvent<HTMLTextAreaElement>
+
 export function useForm<T>(initialFormState: T) {
   const [form, setForm] = useState(initialFormState)
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: IChangeEvent) => {
     const { name, value } = event.target
     setForm((prev) => ({
       ...prev,

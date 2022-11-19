@@ -40,10 +40,8 @@ main {
   justify-content: center;
 }
 
-a {
-  all: unset;
-}
-
-input {
+a,
+input,
+textarea {
   all: unset;
 }
