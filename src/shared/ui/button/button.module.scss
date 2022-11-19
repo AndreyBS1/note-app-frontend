@@ -1,0 +1,23 @@
+.button {
+  padding: 1rem;
+  border: 1px solid transparent;
+  background-color: transparent;
+  transition: all ease 0.3s;
+}
+
+.primary {
+  color: var(--dark-color);
+  border-color: var(--dark-color);
+
+  &:hover {
+    background-color: var(--primary-light);
+  }
+}
+
+.secondary {
+  color: var(--dark-color);
+
+  &:hover {
+    border-color: var(--dark-color);
+  }
+}
