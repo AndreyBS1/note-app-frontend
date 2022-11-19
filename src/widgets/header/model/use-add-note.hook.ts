@@ -1,28 +1,32 @@
 import { createEvent, sample } from 'effector'
 import { useEvent, useStore } from 'effector-react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { NoteModel } from 'src/entities/note'
 import { INote } from 'src/shared/api'
 import { createUid } from 'src/shared/lib'
 
-const createNoteEv = createEvent<INote>()
+const addNoteEv = createEvent<INote>()
 
 sample({
-  clock: createNoteEv,
+  clock: addNoteEv,
   target: NoteModel.addNoteFx,
 })
 
-NoteModel.$notes.on(NoteModel.addNoteFx.doneData, (_, notes) => notes)
-
 const $isNoteCreating = NoteModel.addNoteFx.pending
 
-export function useCreateNote() {
-  const navigate = useNavigate()
-  const createNote = useEvent(createNoteEv)
+NoteModel.$notes.on(NoteModel.addNoteFx.doneData, (_, notes) => notes)
 
-  const handleCreateNote = () => {
-    const id = createUid()
+let id: any = null
+
+export function useAddNote() {
+  const navigate = useNavigate()
+  const addNote = useEvent(addNoteEv)
+  const isNoteCreating = useStore($isNoteCreating)
+
+  const handleAddNote = () => {
+    id = createUid()
     const newNote: INote = {
       id,
       title: '',
@@ -30,11 +34,17 @@ export function useCreateNote() {
       tagIds: [],
       createdAt: new Date().getTime(),
     }
-    createNote(newNote)
-    navigate(`/note/${id}`)
+    addNote(newNote)
   }
 
-  const isNoteCreating = useStore($isNoteCreating)
+  const notes = useStore(NoteModel.$notes)
 
-  return { handleCreateNote, isNoteCreating }
+  useEffect(() => {
+    if (id) {
+      navigate(`/note/${id}`)
+      id = null
+    }
+  }, [notes])
+
+  return { handleAddNote, isNoteCreating }
 }

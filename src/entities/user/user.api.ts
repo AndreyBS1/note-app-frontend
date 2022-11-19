@@ -27,6 +27,7 @@ export async function updateUser(updatedUserName: string): Promise<IUser> {
   return updatedUser
 }
 
-export async function deleteUser(): Promise<void> {
-  return apiService.clear(USERS_KEY)
+export async function deleteUser(): Promise<null> {
+  await apiService.clear(USERS_KEY)
+  return null
 }

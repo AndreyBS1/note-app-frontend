@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 /**
  * Creates random timeout between 0 and 1500 milliseconds
@@ -21,6 +21,10 @@ type IChangeEvent =
 
 export function useForm<T>(initialFormState: T) {
   const [form, setForm] = useState(initialFormState)
+
+  useEffect(() => {
+    setForm(initialFormState)
+  }, [initialFormState])
 
   const handleChange = (event: IChangeEvent) => {
     const { name, value } = event.target

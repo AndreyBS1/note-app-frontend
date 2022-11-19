@@ -10,8 +10,6 @@ sample({
   target: NoteModel.deleteNoteFx,
 })
 
-NoteModel.$notes.on(NoteModel.deleteNoteFx.doneData, (_, notes) => notes)
-
 const $isNoteDeleting = NoteModel.deleteNoteFx.pending
 
 export function useDeleteNote() {

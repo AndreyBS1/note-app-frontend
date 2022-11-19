@@ -8,14 +8,14 @@ const pageLoadEv = createEvent<void>()
 
 sample({
   clock: pageLoadEv,
-  target: [NoteModel.getAllNotesFx, TagModel.getAllTagsFx],
+  target: [NoteModel.getNotesFx, TagModel.getAllTagsFx],
 })
 
 const $isUserStatsLoading =
-  NoteModel.getAllNotesFx.pending || TagModel.getAllTagsFx.pending
+  NoteModel.getNotesFx.pending || TagModel.getAllTagsFx.pending
 
 const $userStats = createStore({ notesAmount: 0, tagsAmount: 0 })
-$userStats.on(NoteModel.getAllNotesFx.doneData, (state, notes) => ({
+$userStats.on(NoteModel.getNotesFx.doneData, (state, notes) => ({
   ...state,
   notesAmount: notes.length,
 }))

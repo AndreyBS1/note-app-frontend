@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Button } from 'src/shared/ui/button'
 import { Container } from 'src/shared/ui/container'
 
-import { useCreateNote } from '../model'
+import { useAddNote } from '../model'
 import styles from './header.module.scss'
 
 import addIcon from 'assets/add.svg'
@@ -10,7 +10,7 @@ import menuIcon from 'assets/menu.svg'
 import { SearchBar } from './search-bar'
 
 export function Header() {
-  const { handleCreateNote, isNoteCreating } = useCreateNote()
+  const { handleAddNote, isNoteCreating } = useAddNote()
 
   if (isNoteCreating) {
     return <div>Loading...</div>
@@ -32,7 +32,7 @@ export function Header() {
             <SearchBar onSearch={() => null} />
           </div>
 
-          <Button className={styles.button} onClick={handleCreateNote}>
+          <Button className={styles.button} onClick={handleAddNote}>
             <img src={addIcon} alt="add new note" />
           </Button>
 

@@ -1,31 +1,22 @@
-import { createEvent, sample } from 'effector'
-import { useEvent, useStore } from 'effector-react'
-import { useEffect } from 'react'
+import { useStore } from 'effector-react'
+import { useEffect, useState } from 'react'
 
 import { NoteModel } from 'src/entities/note'
-
-const pageLoadEv = createEvent<string>()
-
-sample({
-  clock: pageLoadEv,
-  target: NoteModel.getNoteFx,
-})
-
-NoteModel.$selectedNote.on(NoteModel.getNoteFx.doneData, (_, note) => note)
-
-const $isNoteLoading = NoteModel.getNoteFx.pending
+import { INote } from 'src/shared/api'
 
 export function useNote(noteId: string | undefined) {
-  const handlePageLoad = useEvent(pageLoadEv)
+  const notes = useStore(NoteModel.$notes)
+
+  const [note, setNote] = useState<INote | null>(null)
+  const [isNoteLoading, setIsNoteLoading] = useState(true)
 
   useEffect(() => {
     if (noteId) {
-      handlePageLoad(noteId)
+      const selectedNote = notes.find((note) => note.id === noteId) || null
+      setNote(selectedNote)
+      setIsNoteLoading(false)
     }
   }, [noteId])
-
-  const note = useStore(NoteModel.$selectedNote)
-  const isNoteLoading = useStore($isNoteLoading)
 
   return { note, isNoteLoading }
 }

@@ -11,8 +11,6 @@ sample({
   target: NoteModel.updateNoteFx,
 })
 
-NoteModel.$selectedNote.on(NoteModel.updateNoteFx.doneData, (_, note) => note)
-
 let timeout: any = null
 
 export function useUpdateNote() {

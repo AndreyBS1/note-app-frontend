@@ -21,6 +21,8 @@ const $isUserDeleting =
   NoteModel.clearNotesFx.pending ||
   TagModel.clearTagsFx.pending
 
+UserModel.$user.on(UserModel.deleteUserFx.doneData, (_, user) => user)
+
 export function useDeleteUser() {
   const handleDeleteUser = useEvent(deleteUserEv)
   const isUserDeleting = useStore($isUserDeleting)

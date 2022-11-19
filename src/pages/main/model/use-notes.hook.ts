@@ -8,12 +8,12 @@ const pageLoadEv = createEvent<void>()
 
 sample({
   clock: pageLoadEv,
-  target: NoteModel.getAllNotesFx,
+  target: NoteModel.getNotesFx,
 })
 
-const $isNotesLoading = NoteModel.getAllNotesFx.pending
+const $isNotesLoading = NoteModel.getNotesFx.pending
 
-NoteModel.$notes.on(NoteModel.getAllNotesFx.doneData, (_, notes) => notes)
+NoteModel.$notes.on(NoteModel.getNotesFx.doneData, (_, notes) => notes)
 
 export function useNotes() {
   const handlePageLoad = useEvent(pageLoadEv)
