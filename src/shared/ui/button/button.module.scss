@@ -1,8 +1,11 @@
 .button {
   padding: 1rem;
-  border: 1px solid transparent;
+  font-size: 1.3rem;
+  border: 0.15rem solid transparent;
+  border-radius: 0.2rem;
   background-color: transparent;
   transition: all ease 0.3s;
+  cursor: pointer;
 }
 
 .primary {
