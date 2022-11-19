@@ -1,14 +1,5 @@
-.contentContainer {
+.container {
   flex-grow: 1;
-}
-
-.empty {
-  flex-grow: 1;
+  padding: 3rem 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.emptyText {
-  margin-bottom: 10rem;
 }

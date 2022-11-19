@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom'
 import { Container } from 'src/shared/ui/container'
 import { Footer } from 'src/widgets/footer/ui'
 import { Header } from 'src/widgets/header/ui'
 
 import { useNotes } from '../model'
+import { NotesList } from './notes-list'
+
 import styles from './main.module.scss'
 
 export function Main() {
@@ -19,29 +20,9 @@ export function Main() {
 
       <main>
         <Container>
-          {notes.length ? (
-            <div className={styles.contentContainer}>
-              {notes.map((note) => (
-                <Link to={`/note/${note.id}`}>
-                  <div
-                    style={{
-                      minHeight: '10rem',
-                      minWidth: '5rem',
-                      color: 'white',
-                      backgroundColor: 'black',
-                    }}
-                  >
-                    <h3>{note.title}</h3>
-                    <p>{note.text}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className={styles.empty}>
-              <h1 className={styles.emptyText}>You don't have notes yet</h1>
-            </div>
-          )}
+          <div className={styles.container}>
+            <NotesList notes={notes} />
+          </div>
         </Container>
       </main>
 
