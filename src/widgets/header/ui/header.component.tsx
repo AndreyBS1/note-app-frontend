@@ -2,11 +2,12 @@ import { Link } from 'react-router-dom'
 import { Button } from 'src/shared/ui/button'
 
 import { useAddNote } from '../model'
+import { SearchBar } from './search-bar'
+
 import styles from './header.module.scss'
 
 import addIcon from 'assets/add.svg'
 import menuIcon from 'assets/menu.svg'
-import { SearchBar } from './search-bar'
 
 export function Header() {
   const { handleAddNote, isNoteCreating } = useAddNote()
