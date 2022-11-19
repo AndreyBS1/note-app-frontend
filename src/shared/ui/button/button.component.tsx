@@ -1,8 +1,8 @@
-import { HTMLAttributes } from 'react'
+import { ButtonHTMLAttributes } from 'react'
 
 import styles from './button.module.scss'
 
-interface IButton extends HTMLAttributes<HTMLButtonElement> {
+interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary'
 }
 

@@ -1,34 +1,37 @@
 import { IUser } from 'src/shared/api'
+import { Button } from 'src/shared/ui/button'
 
 import styles from './user-card.module.scss'
 
 interface IUserCard {
   user: IUser
+  stats: { notesAmount: number; tagsAmount: number }
   onLogIn: () => void
   onDelete: () => void
 }
 
 export function UserCard(props: IUserCard) {
-  const { user, onLogIn, onDelete } = props
+  const { user, stats, onLogIn, onDelete } = props
 
   return (
     <div className={styles.userCard}>
       <div className={styles.infoContainer}>
+        <h3 className={styles.welcomeText}>Welcome back!</h3>
         <h2 className={styles.name}>{user.name}</h2>
+        <p className={styles.stats}>Notes: {stats.notesAmount}</p>
+        <p className={styles.stats}>Tags: {stats.tagsAmount}</p>
       </div>
       <div className={styles.buttonContainer}>
-        <button
-          className={`${styles.button} ${styles.login}`}
-          onClick={onLogIn}
-        >
+        <Button onClick={onLogIn} className={styles.button}>
           Log in
-        </button>
-        <button
-          className={`${styles.button} ${styles.delete}`}
+        </Button>
+        <Button
+          variant="secondary"
           onClick={onDelete}
+          className={styles.button}
         >
           Delete
-        </button>
+        </Button>
       </div>
     </div>
   )

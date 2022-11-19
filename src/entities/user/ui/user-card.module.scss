@@ -7,39 +7,28 @@
   margin-bottom: 3rem;
 }
 
+.welcomeText {
+  font-size: 2rem;
+}
+
 .name {
-  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  font-size: 4rem;
+}
+
+.stats {
+  margin-bottom: 0.3rem;
+  font-size: 1.5rem;
 }
 
 .buttonContainer {
   display: flex;
-  flex-direction: column;
 }
 
 .button {
-  width: max-content;
-  font-size: 2rem;
-  border: none;
-  border-bottom: 2px solid transparent;
-  background-color: transparent;
-  transition: all ease 0.3s;
-  cursor: pointer;
+  width: 10rem;
 
   &:not(:last-child) {
-    margin-bottom: 2rem;
-  }
-}
-
-.login {
-  color: var(--primary-light);
-  &:hover {
-    border-color: var(--primary-light);
-  }
-}
-
-.delete {
-  color: red;
-  &:hover {
-    border-color: red;
+    margin-right: 2rem;
   }
 }

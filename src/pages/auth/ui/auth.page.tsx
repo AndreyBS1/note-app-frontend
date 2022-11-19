@@ -1,15 +1,18 @@
 import { useNavigate } from 'react-router-dom'
-import { UserCard } from 'src/entities/user'
 
-import { useCreateUser, useDeleteUser, useUser, useUserForm } from '../model'
+import { UserCard } from 'src/entities/user'
+import { Button } from 'src/shared/ui/button'
+
+import * as model from '../model'
 import styles from './auth.module.scss'
 
 export function Auth() {
   const navigate = useNavigate()
-  const { user, isUsersLoading } = useUser()
-  const { form, handleChange } = useUserForm()
-  const { handleCreateUser, isUserCreating } = useCreateUser()
-  const { handleDeleteUser, isUserDeleting } = useDeleteUser()
+  const { user, isUsersLoading } = model.useUser()
+  const { userStats, isUserStatsLoading } = model.useUserStats()
+  const { form, handleChange } = model.useUserForm()
+  const { handleCreateUser, isUserCreating } = model.useCreateUser()
+  const { handleDeleteUser, isUserDeleting } = model.useDeleteUser()
 
   const handleLogIn = () => {
     navigate('/main')
@@ -20,49 +23,51 @@ export function Auth() {
     navigate('/main')
   }
 
-  if (isUsersLoading || isUserDeleting) {
+  const isLoading = isUsersLoading || isUserDeleting || isUserStatsLoading
+  if (isLoading) {
     return <div>Loading...</div>
   }
 
   return (
     <main>
-      <div className={styles.contentContainer}>
-        <div className={styles.titleContainer}>
+      <div className={styles.container}>
+        <div className={`${styles.contentContainer} ${styles.titleContainer}`}>
           <h1 className={styles.title}>
             Simple
             <br />
-            <span className={styles.highlightedText}>web app</span>
+            web app
             <br />
-            for <span className={styles.highlightedText}>notes</span>.
+            for notes.
           </h1>
         </div>
-        <div className={styles.userContainer}>
+        <div className={`${styles.contentContainer} ${styles.userContainer}`}>
           {user ? (
             <UserCard
               user={user}
+              stats={userStats}
               onLogIn={handleLogIn}
               onDelete={handleDeleteUser}
             />
           ) : (
             <form className={styles.form} onSubmit={handleSubmit}>
               <label htmlFor="name" className={styles.label}>
-                Username
+                To continue, please, enter your name
               </label>
               <input
                 type="text"
                 name="name"
-                placeholder="Please, enter your username"
+                placeholder="Username"
                 className={styles.input}
                 value={form.name}
                 onChange={handleChange}
               />
-              <button
+              <Button
                 type="submit"
                 disabled={isUserCreating}
                 className={styles.submitButton}
               >
-                Create
-              </button>
+                Continue
+              </Button>
             </form>
           )}
         </div>
