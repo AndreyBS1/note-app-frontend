@@ -1,3 +1,5 @@
+$margin: 3rem;
+
 .header {
   width: 100%;
   display: flex;
@@ -6,23 +8,38 @@
 
 .contentContainer {
   flex-grow: 1;
-  padding: 2rem 0;
+  padding: 0.6rem 0;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--secondary-light);
+  border-bottom: 1px solid var(--dark-color);
+}
+
+.logo {
+  margin-right: $margin;
 }
 
 .logoText {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .searchBarContainer {
-  margin: 0 3rem;
+  align-self: stretch;
   flex-grow: 1;
+  margin-right: $margin;
+  display: flex;
 }
 
 .button {
-  &:not(:last-child) {
-    margin-right: 1.5rem;
+  height: 3rem;
+  width: 3rem;
+  padding: 0;
+  margin-right: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999px;
+
+  & img {
+    width: 1.5rem;
   }
 }

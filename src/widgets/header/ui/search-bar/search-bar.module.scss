@@ -1,0 +1,32 @@
+.form {
+  align-self: stretch;
+  flex-grow: 1;
+  display: flex;
+  border: 0.15rem solid var(--dark-color);
+  border-radius: 0.2rem;
+  background-color: transparent;
+  transition: all ease 0.3s;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: var(--primary-light);
+  }
+}
+
+.submitButton {
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+
+  & img {
+    width: 1.5rem;
+  }
+}
+
+.input {
+  flex-grow: 1;
+}
