@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { Button } from 'src/shared/ui/button'
-import { Container } from 'src/shared/ui/container'
 
 import { useAddNote } from '../model'
 import styles from './header.module.scss'
@@ -17,28 +16,28 @@ export function Header() {
   }
 
   return (
-    <header className={styles.header}>
-      <Container>
-        <div className={styles.contentContainer}>
-          <Button className={styles.button}>
-            <img src={menuIcon} alt="open/close side menu" />
-          </Button>
+    <>
+      <header className={styles.header}>
+        <Button className={styles.button}>
+          <img src={menuIcon} alt="open/close side menu" />
+        </Button>
 
-          <Link to="/main" className={styles.logo}>
-            <h1 className={styles.logoText}>notes</h1>
-          </Link>
+        <Link to="/main" className={styles.logo}>
+          <h1 className={styles.logoText}>notes</h1>
+        </Link>
 
-          <div className={styles.searchBarContainer}>
-            <SearchBar onSearch={() => null} />
-          </div>
-
-          <Button className={styles.button} onClick={handleAddNote}>
-            <img src={addIcon} alt="add new note" />
-          </Button>
-
-          <p>User</p>
+        <div className={styles.searchBarContainer}>
+          <SearchBar onSearch={() => null} />
         </div>
-      </Container>
-    </header>
+
+        <Button className={styles.button} onClick={handleAddNote}>
+          <img src={addIcon} alt="add new note" />
+        </Button>
+
+        <p>User</p>
+      </header>
+
+      <div className={styles.spacer} />
+    </>
   )
 }

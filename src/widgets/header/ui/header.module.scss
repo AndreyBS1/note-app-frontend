@@ -1,17 +1,14 @@
 $margin: 3rem;
 
 .header {
+  position: fixed;
+  top: 0;
   width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.contentContainer {
-  flex-grow: 1;
-  padding: 0.6rem 0;
+  padding: 0.6rem 3rem;
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--dark-color);
+  background-color: var(--light-color);
 }
 
 .logo {
@@ -42,4 +39,9 @@ $margin: 3rem;
   & img {
     width: 1.5rem;
   }
+}
+
+.spacer {
+  height: 5rem;
+  width: 100%;
 }
