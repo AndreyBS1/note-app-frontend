@@ -24,7 +24,7 @@ export function useUpdateNote() {
     }
     timeout = setTimeout(() => {
       updateNote(updatedNote)
-    }, 2000)
+    }, 1500)
   }
 
   return { handleUpdateNote }

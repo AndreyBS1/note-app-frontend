@@ -9,28 +9,32 @@ import * as model from '../model'
 import styles from './note.module.scss'
 
 export function Note() {
-  const { noteId } = useParams()
-  const { note, isNoteLoading } = model.useNote(noteId)
+  const { id } = useParams()
+  const { note, isNoteLoading } = model.useNote(id)
   const { form, handleChange } = model.useNoteForm()
   const { handleUpdateNote } = model.useUpdateNote()
   const { handleDeleteNote, isNoteDeleting } = model.useDeleteNote()
 
   useEffect(() => {
-    handleUpdateNote(form)
+    if (form) {
+      handleUpdateNote(form)
+    }
   }, [form])
 
   const navigate = useNavigate()
 
-  const handleDeleteClick = () => {
-    handleDeleteNote(form.id)
-    navigate('/')
-  }
+  // const handleDeleteClick = () => {
+  //   handleDeleteNote(form.id)
+  //   navigate('/')
+  // }
 
-  if (isNoteLoading || isNoteDeleting) {
+  const isLoading = isNoteLoading || isNoteDeleting
+  if (isLoading) {
     return <div>Loading...</div>
   }
 
-  if (!isNoteLoading && note == null) {
+  const isError = !isNoteLoading && (note == null || form == null)
+  if (isError) {
     return <div>Such note does not exist</div>
   }
 
@@ -47,6 +51,7 @@ export function Note() {
                 type="text"
                 placeholder="Title"
                 className={`${styles.input} ${styles.title}`}
+                value={form?.title || ''}
                 onChange={handleChange}
               />
               {/* <button onClick={handleDeleteClick}>Delete</button> */}
@@ -56,6 +61,7 @@ export function Note() {
                 name="text"
                 placeholder="Text"
                 className={`${styles.input} ${styles.text}`}
+                value={form?.text || ''}
                 onChange={handleChange}
               />
             </div>

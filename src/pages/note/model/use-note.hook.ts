@@ -11,10 +11,7 @@ sample({
   target: NoteModel.getNoteFx,
 })
 
-NoteModel.$selectedNote.on(
-  NoteModel.getNoteFx.doneData,
-  (_, selectedNote) => selectedNote
-)
+NoteModel.$selectedNote.on(NoteModel.getNoteFx.doneData, (_, note) => note)
 
 const $isNoteLoading = NoteModel.getNoteFx.pending
 
@@ -22,7 +19,7 @@ export function useNote(noteId: string | undefined) {
   const handlePageLoad = useEvent(pageLoadEv)
 
   useEffect(() => {
-    if (noteId && noteId !== 'new') {
+    if (noteId) {
       handlePageLoad(noteId)
     }
   }, [noteId])
