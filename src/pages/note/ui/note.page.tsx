@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useForm } from 'src/shared/lib'
+import ReactTextareaAutosize from 'react-textarea-autosize'
 
+import { useForm } from 'src/shared/lib'
 import { Container } from 'src/shared/ui/container'
 import { Footer } from 'src/widgets/footer/ui'
 import { Header } from 'src/widgets/header/ui'
@@ -54,7 +55,7 @@ export function Note() {
               />
             </div>
             <div className={styles.textContainer}>
-              <textarea
+              <ReactTextareaAutosize
                 name="text"
                 placeholder="Text"
                 className={`${styles.input} ${styles.text}`}

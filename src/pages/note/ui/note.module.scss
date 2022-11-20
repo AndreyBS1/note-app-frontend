@@ -7,17 +7,21 @@
 
 .titleContainer {
   margin-bottom: 1rem;
+  padding: 0.5rem;
   display: flex;
+  border-bottom: 0.1rem solid var(--dark-color);
 }
 
 .title {
   font-size: 2rem;
-  border-bottom: 0.1rem solid var(--dark-color);
 }
 
 .textContainer {
+  padding: 0.5rem;
   flex-grow: 1;
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .text {
@@ -26,5 +30,4 @@
 
 .input {
   flex-grow: 1;
-  padding: 0.5rem;
 }
