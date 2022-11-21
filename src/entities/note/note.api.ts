@@ -9,7 +9,7 @@ export async function getNotes(): Promise<INote[]> {
   return notes
 }
 
-export async function addNote(newNote: INote): Promise<INote[]> {
+export async function createNote(newNote: INote): Promise<INote[]> {
   const notes = await apiService.get<INote[]>(NOTES_KEY)
 
   let newNotes: INote[] = []

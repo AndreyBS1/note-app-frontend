@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 
 import { UserCard } from 'src/entities/user'
+import { useCreateUser } from 'src/features/user/create-user'
+import { useDeleteUser } from 'src/features/user/delete-user'
 import { Button } from 'src/shared/ui/button'
 
 import * as model from '../model'
@@ -11,8 +13,8 @@ export function Auth() {
   const { user, isUsersLoading } = model.useUser()
   const { userStats, isUserStatsLoading } = model.useUserStats()
   const { form, handleChange } = model.useUserForm()
-  const { handleCreateUser, isUserCreating } = model.useCreateUser()
-  const { handleDeleteUser, isUserDeleting } = model.useDeleteUser()
+  const { handleCreateUser, isUserCreating } = useCreateUser()
+  const { handleDeleteUser, isUserDeleting } = useDeleteUser()
 
   const handleLogIn = () => {
     navigate('/main')

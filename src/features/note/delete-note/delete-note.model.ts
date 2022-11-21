@@ -10,7 +10,9 @@ sample({
   target: NoteModel.deleteNoteFx,
 })
 
-NoteModel.$notes.on(NoteModel.deleteNoteFx.doneData, (_, notes) => notes)
+NoteModel.$notes.on(deleteNoteEv, (notes, deletedNoteId) =>
+  notes.filter((note) => note.id !== deletedNoteId)
+)
 
 export function useDeleteNote() {
   const handleDeleteNote = useEvent(deleteNoteEv)

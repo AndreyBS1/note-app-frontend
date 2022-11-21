@@ -23,7 +23,7 @@ export async function getTag(tagId: string): Promise<ITag> {
   return foundedTag
 }
 
-export async function addTag(newTag: ITag): Promise<ITag[]> {
+export async function createTag(newTag: ITag): Promise<ITag[]> {
   const tags = await apiService.get<ITag[]>(TAGS_KEY)
 
   const newTags: ITag[] = []

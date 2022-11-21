@@ -9,14 +9,14 @@ export type INote = {
   id: string
   title: string
   text: string
-  tagIds: string[]
+  tags: ITag[]
   createdAt: number
 }
 
 export type ITag = {
   id: string
   name: string
-  noteIds: string[]
+  notes: INote[]
 }
 
 export const apiService = {

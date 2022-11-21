@@ -6,7 +6,7 @@ import * as api from './note.api'
 export const $notes = createStore<INote[]>([])
 
 export const getNotesFx = createEffect(api.getNotes)
-export const addNoteFx = createEffect(api.addNote)
+export const createNoteFx = createEffect(api.createNote)
 export const updateNoteFx = createEffect(api.updateNote)
 export const deleteNoteFx = createEffect(api.deleteNote)
 export const clearNotesFx = createEffect(api.clearNotes)
