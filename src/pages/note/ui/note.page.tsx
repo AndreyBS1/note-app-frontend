@@ -1,26 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ReactTextareaAutosize from 'react-textarea-autosize'
 
 import { useUpdateNote } from 'src/features/note/update-note'
-import { useForm } from 'src/shared/lib'
 import { Button } from 'src/shared/ui/button'
 import { Container } from 'src/shared/ui/container'
 import { Footer } from 'src/widgets/footer/ui'
 import { Header } from 'src/widgets/header/ui'
 
 import * as model from '../model'
-import { AddTagForm } from './add-tag-form'
 import { TagLabelsList } from './tag-labels-list'
 
 import styles from './note.module.scss'
 
 import addIcon from 'assets/add.svg'
+import settingsIcon from 'assets/settings.svg'
 
 export function Note() {
   const { id } = useParams()
   const { note, isNoteLoading } = model.useNote(id)
-  const { form, handleChange } = useForm(note)
+  const { form, handleChange } = model.useNoteForm(note)
   const { handleUpdateNote } = useUpdateNote()
 
   useEffect(() => {
@@ -28,17 +27,6 @@ export function Note() {
       handleUpdateNote(form)
     }
   }, [form])
-
-  const [showTagForm, setShowTagForm] = useState(false)
-  const handleAddTag = () => {
-    setShowTagForm(true)
-  }
-  const handleTagFormBlur = () => {
-    setShowTagForm(false)
-  }
-  const handleTagFormSubmit = () => {
-    setShowTagForm(false)
-  }
 
   if (isNoteLoading) {
     return <div>Loading...</div>
@@ -82,18 +70,20 @@ export function Note() {
             </div>
             <div className={styles.tagsContainer}>
               <TagLabelsList tags={form.tags} />
-              {showTagForm ? (
-                <AddTagForm
-                  onSubmit={handleTagFormSubmit}
-                  isAutoFocus={showTagForm}
-                  onBlur={handleTagFormBlur}
-                />
-              ) : (
-                <Button className={styles.addTagButton} onClick={handleAddTag}>
-                  <img src={addIcon} alt="" />
-                  Add tag
-                </Button>
-              )}
+              <Button className={styles.manageTagsButton}>
+                {form.tags.length > 0 ? (
+                  <img src={settingsIcon} alt="manage tags" />
+                ) : (
+                  <>
+                    <img
+                      src={addIcon}
+                      alt="add tags"
+                      style={{ marginRight: '0.3rem' }}
+                    />
+                    <span style={{ marginRight: '0.5rem' }}>Add tags</span>
+                  </>
+                )}
+              </Button>
             </div>
           </div>
         </Container>
