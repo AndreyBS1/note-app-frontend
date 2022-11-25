@@ -25,7 +25,7 @@ export function useCreateTag() {
     const id = createUid()
     const newTag: ITag = {
       id,
-      name: '',
+      name: 'New tag',
       notes: [],
     }
     createTag(newTag)

@@ -1,5 +1,5 @@
 import { createEvent, sample } from 'effector'
-import { useEvent, useStore } from 'effector-react'
+import { useEvent } from 'effector-react'
 
 import { TagModel } from 'src/entities/tag'
 import { ITag } from 'src/shared/api'
@@ -11,11 +11,17 @@ sample({
   target: TagModel.updateTagFx,
 })
 
-const $isTagUpdating = TagModel.updateTagFx.pending
+TagModel.$tags.on(updateTagEv, (tags, updatedTag) =>
+  tags.map((tag) => {
+    if (tag.id === updatedTag.id) {
+      return updatedTag
+    }
+    return tag
+  })
+)
 
 export function useUpdateTag() {
   const handleUpdateTag = useEvent(updateTagEv)
-  const isTagUpdating = useStore($isTagUpdating)
 
-  return { handleUpdateTag, isTagUpdating }
+  return { handleUpdateTag }
 }
