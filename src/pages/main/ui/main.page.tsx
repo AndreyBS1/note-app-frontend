@@ -4,7 +4,7 @@ import { Footer } from 'src/widgets/footer/ui'
 import { Header } from 'src/widgets/header/ui'
 import { Sidebar } from 'src/widgets/sidebar'
 
-import { useNotes } from '../model'
+import { useLoadTags, useNotes } from '../model'
 import { NotesList } from './notes-list'
 
 import { useState } from 'react'
@@ -20,7 +20,8 @@ const mockSelectedTags: ITag[] = [
 
 export function Main() {
   const { notes, isNotesLoading } = useNotes()
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const { isTagsLoading } = useLoadTags()
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const handleSidebarToggle = () => {
     setIsSidebarOpen((prev) => !prev)
@@ -40,7 +41,7 @@ export function Main() {
     }
   }
 
-  if (isNotesLoading) {
+  if (isTagsLoading || isNotesLoading) {
     return <div>Loading...</div>
   }
 

@@ -1,26 +1,20 @@
-import { MouseEvent } from 'react'
+import { useStore } from 'effector-react'
+import { MouseEvent, useState } from 'react'
+import { TagModel } from 'src/entities/tag'
+import { useCreateTag } from 'src/features/tag/create-tag'
 
 import { ITag } from 'src/shared/api'
+import { Button } from 'src/shared/ui/button'
+import { Icon } from 'src/shared/ui/icon'
+
+import { useTagClassName } from '../lib'
+import { TagForm } from './tag-form'
 
 import styles from './sidebar.module.scss'
 
-const tags: ITag[] = [
-  {
-    id: '0',
-    name: 'Zero',
-    notes: [],
-  },
-  {
-    id: '1',
-    name: 'One',
-    notes: [],
-  },
-  {
-    id: '2',
-    name: 'Two',
-    notes: [],
-  },
-]
+import deleteIcon from 'assets/delete.svg'
+import editIcon from 'assets/edit.svg'
+import { useDeleteTag } from 'src/features/tag/delete-tag'
 
 interface ISidebar {
   isOpen: boolean
@@ -32,27 +26,24 @@ interface ISidebar {
 export function Sidebar(props: ISidebar) {
   const { isOpen, onClose, selectedTags, onTagClick } = props
 
-  const checkIsTagSelected = (tagToCheck: ITag) => {
-    return selectedTags.some((tag) => tag.id === tagToCheck.id)
+  const tags = useStore(TagModel.$tags)
+  const { handleCreateTag } = useCreateTag()
+  const { handleDeleteTag } = useDeleteTag()
+  const { getTagClassName } = useTagClassName(selectedTags)
+  const [showTagForm, setShowTagForm] = useState(false)
+
+  const toggleTagForm = () => {
+    setShowTagForm((prev) => !prev)
   }
 
-  const getItemClassName = (target: 'item' | 'itemContent', tag: ITag) => {
-    const isTagSelected = checkIsTagSelected(tag)
-    switch (target) {
-      case 'item':
-        return `${styles.item} ${isTagSelected ? styles.activeItem : ''}`
-      case 'itemContent':
-        return `${styles.itemContent} ${
-          isTagSelected ? styles.activeItemContent : ''
-        }`
-      default:
-        return ''
-    }
-  }
-
-  const preventClose = (event: MouseEvent) => {
+  const stopEventPropagation = (event: MouseEvent) => {
     event.preventDefault()
     event.stopPropagation()
+  }
+
+  const handleEditClick = (event: MouseEvent) => {
+    stopEventPropagation(event)
+    toggleTagForm()
   }
 
   if (!isOpen) {
@@ -61,21 +52,53 @@ export function Sidebar(props: ISidebar) {
 
   return (
     <div className={styles.background} onClick={onClose}>
-      <div className={styles.sidebar} onClick={preventClose}>
+      <div className={styles.sidebar} onClick={stopEventPropagation}>
         <div className={styles.container}>
-          <ul className={styles.list}>
-            {tags.map((tag) => (
-              <li
-                key={tag.id}
-                className={getItemClassName('item', tag)}
-                onClick={() => onTagClick(tag)}
-              >
-                <div className={getItemClassName('itemContent', tag)}>
-                  {tag.name}
-                </div>
-              </li>
-            ))}
-          </ul>
+          {tags.length ? (
+            <ul className={styles.list}>
+              {tags.map((tag) => (
+                <li
+                  key={tag.id}
+                  className={getTagClassName('item', tag)}
+                  onClick={() => onTagClick(tag)}
+                >
+                  <div className={getTagClassName('itemContent', tag)}>
+                    {showTagForm ? (
+                      <TagForm tag={tag} onSubmit={toggleTagForm} />
+                    ) : (
+                      <>{tag.name}</>
+                    )}
+                  </div>
+                  <div className={styles.itemHover}>
+                    <button
+                      className={styles.editButton}
+                      onClick={handleEditClick}
+                    >
+                      <Icon src={editIcon} alt="edit tag" />
+                    </button>
+                    <button
+                      className={styles.editButton}
+                      onClick={() => handleDeleteTag(tag)}
+                    >
+                      <Icon src={deleteIcon} alt="delete tag" />
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className={styles.empty}>
+              <div className={styles.emptyContainer}>
+                <h2 className={styles.emptyText}>You don't have tags yet</h2>
+                <Button
+                  className={styles.emptyButton}
+                  onClick={handleCreateTag}
+                >
+                  Create new tag
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

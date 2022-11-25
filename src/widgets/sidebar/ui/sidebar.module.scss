@@ -35,6 +35,7 @@
 }
 
 .item {
+  position: relative;
   padding: 1rem 3rem;
   background-color: transparent;
   cursor: pointer;
@@ -54,4 +55,48 @@
 
 .activeItemContent {
   padding-left: 1rem;
+}
+
+.itemHover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding-right: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 0;
+  transition: all ease 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.editButton {
+  padding: 1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.empty {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emptyContainer {
+  margin-bottom: 10rem;
+}
+
+.emptyText {
+  margin-bottom: 1rem;
+}
+
+.emptyButton {
+  width: 100%;
 }
