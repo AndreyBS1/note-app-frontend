@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { useCreateNote } from 'src/features/note/create-note'
 import { Button } from 'src/shared/ui/button'
@@ -17,7 +17,13 @@ interface IHeader {
 export function Header(props: IHeader) {
   const { onSidebarToggle } = props
 
+  const navigate = useNavigate()
   const { handleCreateNote } = useCreateNote()
+
+  const handleCreateClick = () => {
+    const newNoteId = handleCreateNote()
+    navigate(`/note/${newNoteId}`)
+  }
 
   return (
     <>
@@ -34,7 +40,7 @@ export function Header(props: IHeader) {
           <SearchBar onSearch={() => null} />
         </div>
 
-        <Button className={styles.button} onClick={handleCreateNote}>
+        <Button className={styles.button} onClick={handleCreateClick}>
           <img src={addIcon} alt="add new note" />
         </Button>
 
