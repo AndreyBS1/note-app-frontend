@@ -5,8 +5,8 @@ import ReactTextareaAutosize from 'react-textarea-autosize'
 import { useUpdateNote } from 'src/features/note/update-note'
 import { Button } from 'src/shared/ui/button'
 import { Container } from 'src/shared/ui/container'
-import { Footer } from 'src/widgets/footer/ui'
-import { Header } from 'src/widgets/header/ui'
+import { Footer } from 'src/widgets/footer'
+import { Header } from 'src/widgets/header'
 
 import * as model from '../model'
 import { TagLabelsList } from './tag-labels-list'
@@ -44,7 +44,7 @@ export function Note() {
 
   return (
     <>
-      <Header />
+      <Header onSidebarToggle={() => null} />
 
       <main>
         <Container>
