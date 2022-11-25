@@ -1,26 +1,54 @@
 import { MouseEvent } from 'react'
 
 import { ITag } from 'src/shared/api'
-import { Container } from 'src/shared/ui/container'
 
 import styles from './sidebar.module.scss'
+
+const tags: ITag[] = [
+  {
+    id: '0',
+    name: 'Zero',
+    notes: [],
+  },
+  {
+    id: '1',
+    name: 'One',
+    notes: [],
+  },
+  {
+    id: '2',
+    name: 'Two',
+    notes: [],
+  },
+]
 
 interface ISidebar {
   isOpen: boolean
   onClose: () => void
-  tags?: ITag[]
-  contentType?: 'list' | 'select-input'
-  onTagClick?: (tag: ITag) => void
+  selectedTags: ITag[]
+  onTagClick: (tag: ITag) => void
 }
 
 export function Sidebar(props: ISidebar) {
-  const {
-    isOpen,
-    onClose,
-    tags = [],
-    contentType = 'list',
-    onTagClick = () => null,
-  } = props
+  const { isOpen, onClose, selectedTags, onTagClick } = props
+
+  const checkIsTagSelected = (tagToCheck: ITag) => {
+    return selectedTags.some((tag) => tag.id === tagToCheck.id)
+  }
+
+  const getItemClassName = (target: 'item' | 'itemContent', tag: ITag) => {
+    const isTagSelected = checkIsTagSelected(tag)
+    switch (target) {
+      case 'item':
+        return `${styles.item} ${isTagSelected ? styles.activeItem : ''}`
+      case 'itemContent':
+        return `${styles.itemContent} ${
+          isTagSelected ? styles.activeItemContent : ''
+        }`
+      default:
+        return ''
+    }
+  }
 
   const preventClose = (event: MouseEvent) => {
     event.preventDefault()
@@ -34,21 +62,22 @@ export function Sidebar(props: ISidebar) {
   return (
     <div className={styles.background} onClick={onClose}>
       <div className={styles.sidebar} onClick={preventClose}>
-        <Container>
-          <div className={styles.container}>
-            <div>Search bar</div>
-            <div>
-              <ul>
-                <li>{contentType === 'list' ? 'All' : 'Reset all'}</li>
-                {tags.map((tag) => (
-                  <li key={tag.id}>
-                    <button onClick={() => onTagClick(tag)}>{tag.name}</button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </Container>
+        <div className={styles.container}>
+          <div>Search bar</div>
+          <ul className={styles.list}>
+            {tags.map((tag) => (
+              <li
+                key={tag.id}
+                className={getItemClassName('item', tag)}
+                onClick={() => onTagClick(tag)}
+              >
+                <div className={getItemClassName('itemContent', tag)}>
+                  {tag.name}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   )

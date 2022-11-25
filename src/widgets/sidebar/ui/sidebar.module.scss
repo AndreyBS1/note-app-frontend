@@ -1,3 +1,5 @@
+@import '../../../shared/styles/mixins.scss';
+
 .background {
   position: absolute;
   z-index: 1;
@@ -5,7 +7,8 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(242, 243, 244, 0.7);
+  background-color: rgba(242, 243, 244, 0.5);
+  backdrop-filter: blur(3px);
 }
 
 .sidebar {
@@ -17,4 +20,52 @@
   flex-direction: column;
   border-right: 1px solid var(--dark-color);
   background-color: var(--light-color);
+}
+
+.container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  padding: 1rem 10px;
+  background-color: transparent;
+  cursor: pointer;
+
+  @include tablet {
+    padding: 1rem 20px;
+  }
+
+  @include desktop {
+    max-width: 1060px;
+    padding: 1rem 30px;
+  }
+
+  @include largeDesktop {
+    max-width: 1500px;
+    padding: 1rem 30px;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--dark-color);
+  }
+}
+
+.activeItem {
+  background-color: var(--primary-light);
+}
+
+.itemContent {
+  font-size: 1.5rem;
+}
+
+.activeItemContent {
+  padding-left: 1rem;
 }

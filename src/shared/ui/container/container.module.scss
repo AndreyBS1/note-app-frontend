@@ -2,7 +2,7 @@
 
 .container {
   flex-grow: 1;
-  padding: 10px;
+  padding: 0 10px;
   display: flex;
 
   @include tablet {
