@@ -8,6 +8,7 @@ import { useLoadTags, useNotes } from '../model'
 import { NotesList } from './notes-list'
 
 import { useState } from 'react'
+import { useSidebar } from 'src/shared/lib'
 import styles from './main.module.scss'
 
 const mockSelectedTags: ITag[] = [
@@ -21,11 +22,7 @@ const mockSelectedTags: ITag[] = [
 export function Main() {
   const { notes, isNotesLoading } = useNotes()
   const { isTagsLoading } = useLoadTags()
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen((prev) => !prev)
-  }
+  const { showSidebar, toggleSidebar } = useSidebar()
 
   const [selectedTags, setSelectedTags] = useState(mockSelectedTags)
 
@@ -47,7 +44,7 @@ export function Main() {
 
   return (
     <>
-      <Header onSidebarToggle={handleSidebarToggle} />
+      <Header onSidebarToggle={toggleSidebar} />
 
       <main>
         <Container>
@@ -57,8 +54,8 @@ export function Main() {
         </Container>
 
         <Sidebar
-          isOpen={isSidebarOpen}
-          onClose={handleSidebarToggle}
+          isOpen={showSidebar}
+          onClose={toggleSidebar}
           selectedTags={selectedTags}
           onTagClick={handleTagClick}
         />
