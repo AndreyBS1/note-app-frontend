@@ -10,13 +10,19 @@ import styles from './header.module.scss'
 import addIcon from 'assets/add.svg'
 import menuIcon from 'assets/menu.svg'
 
-export function Header() {
+interface IHeader {
+  onSidebarToggle: () => void
+}
+
+export function Header(props: IHeader) {
+  const { onSidebarToggle } = props
+
   const { handleCreateNote } = useCreateNote()
 
   return (
     <>
       <header className={styles.header}>
-        <Button className={styles.button}>
+        <Button className={styles.button} onClick={onSidebarToggle}>
           <img src={menuIcon} alt="open/close side menu" />
         </Button>
 
