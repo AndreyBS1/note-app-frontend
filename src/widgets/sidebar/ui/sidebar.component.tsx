@@ -63,7 +63,6 @@ export function Sidebar(props: ISidebar) {
     <div className={styles.background} onClick={onClose}>
       <div className={styles.sidebar} onClick={preventClose}>
         <div className={styles.container}>
-          <div>Search bar</div>
           <ul className={styles.list}>
             {tags.map((tag) => (
               <li
