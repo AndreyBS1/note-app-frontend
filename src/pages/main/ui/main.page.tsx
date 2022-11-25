@@ -1,4 +1,7 @@
+import { useState } from 'react'
+
 import { ITag } from 'src/shared/api'
+import { useSidebar } from 'src/shared/lib'
 import { Container } from 'src/shared/ui/container'
 import { Footer } from 'src/widgets/footer/ui'
 import { Header } from 'src/widgets/header/ui'
@@ -7,8 +10,6 @@ import { Sidebar } from 'src/widgets/sidebar'
 import { useLoadTags, useNotes } from '../model'
 import { NotesList } from './notes-list'
 
-import { useState } from 'react'
-import { useSidebar } from 'src/shared/lib'
 import styles from './main.module.scss'
 
 const mockSelectedTags: ITag[] = [
