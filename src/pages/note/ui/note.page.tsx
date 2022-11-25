@@ -3,24 +3,35 @@ import { useParams } from 'react-router-dom'
 import ReactTextareaAutosize from 'react-textarea-autosize'
 
 import { useUpdateNote } from 'src/features/note/update-note'
-import { Button } from 'src/shared/ui/button'
+import { ITag } from 'src/shared/api'
+import { useSidebar } from 'src/shared/lib'
 import { Container } from 'src/shared/ui/container'
 import { Footer } from 'src/widgets/footer'
 import { Header } from 'src/widgets/header'
+import { Sidebar } from 'src/widgets/sidebar'
 
 import * as model from '../model'
 import { TagLabelsList } from './tag-labels-list'
 
 import styles from './note.module.scss'
 
-import addIcon from 'assets/add.svg'
-import settingsIcon from 'assets/settings.svg'
-
 export function Note() {
   const { id } = useParams()
   const { note, isNoteLoading } = model.useNote(id)
-  const { form, handleChange } = model.useNoteForm(note)
+  const { form, setForm, handleChange } = model.useNoteForm(note)
   const { handleUpdateNote } = useUpdateNote()
+  const { showSidebar, toggleSidebar } = useSidebar()
+
+  const handleTagClick = (selectedTag: ITag) => {
+    const isTagSelected = form.tags.some((tag) => tag.id === selectedTag.id)
+    let updatedTags: ITag[] = []
+    if (isTagSelected) {
+      updatedTags = form.tags.filter((tag) => tag.id !== selectedTag.id)
+    } else {
+      updatedTags = [...form.tags, selectedTag]
+    }
+    setForm((prev) => ({ ...prev, tags: updatedTags }))
+  }
 
   useEffect(() => {
     if (form) {
@@ -37,14 +48,14 @@ export function Note() {
     return <div>Such note does not exist</div>
   }
 
-  const isError = form == null
+  const isError = form == null || note == null
   if (isError) {
     return <div>There is some unexpected error</div>
   }
 
   return (
     <>
-      <Header onSidebarToggle={() => null} />
+      <Header onSidebarToggle={toggleSidebar} />
 
       <main>
         <Container>
@@ -70,23 +81,16 @@ export function Note() {
             </div>
             <div className={styles.tagsContainer}>
               <TagLabelsList tags={form.tags} />
-              <Button className={styles.manageTagsButton}>
-                {form.tags.length > 0 ? (
-                  <img src={settingsIcon} alt="manage tags" />
-                ) : (
-                  <>
-                    <img
-                      src={addIcon}
-                      alt="add tags"
-                      style={{ marginRight: '0.3rem' }}
-                    />
-                    <span style={{ marginRight: '0.5rem' }}>Add tags</span>
-                  </>
-                )}
-              </Button>
             </div>
           </div>
         </Container>
+
+        <Sidebar
+          isOpen={showSidebar}
+          onClose={toggleSidebar}
+          selectedTags={form.tags}
+          onTagClick={handleTagClick}
+        />
       </main>
 
       <Footer />

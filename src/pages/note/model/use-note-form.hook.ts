@@ -19,5 +19,5 @@ export function useNoteForm(note: INote | null) {
     }
   }, [note])
 
-  return { form, handleChange }
+  return { form, setForm, handleChange }
 }

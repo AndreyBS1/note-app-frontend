@@ -1,5 +1,5 @@
-import { TagLabel } from 'src/entities/tag'
 import { ITag } from 'src/shared/api'
+import { Button } from 'src/shared/ui/button'
 
 interface ITagLabelsList {
   tags: ITag[]
@@ -15,12 +15,7 @@ export function TagLabelsList(props: ITagLabelsList) {
   return (
     <>
       {tags.map((tag) => (
-        <TagLabel
-          key={tag.id}
-          tag={tag}
-          onClick={() => null}
-          onDelete={() => null}
-        />
+        <Button key={tag.id}>{tag.name}</Button>
       ))}
     </>
   )
