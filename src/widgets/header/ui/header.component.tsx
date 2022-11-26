@@ -3,19 +3,19 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCreateNote } from 'src/features/note/create-note'
 import { Button } from 'src/shared/ui/button'
 
-import { SearchBar } from './search-bar'
+import { ISearchBar, SearchBar } from './search-bar'
 
 import styles from './header.module.scss'
 
 import addIcon from 'assets/add.svg'
 import menuIcon from 'assets/menu.svg'
 
-interface IHeader {
+interface IHeader extends ISearchBar {
   onSidebarToggle: () => void
 }
 
 export function Header(props: IHeader) {
-  const { onSidebarToggle } = props
+  const { onSidebarToggle, query, onQueryChange } = props
 
   const navigate = useNavigate()
   const { handleCreateNote } = useCreateNote()
@@ -37,7 +37,7 @@ export function Header(props: IHeader) {
         </Link>
 
         <div className={styles.searchBarContainer}>
-          <SearchBar onSearch={() => null} />
+          <SearchBar query={query} onQueryChange={onQueryChange} />
         </div>
 
         <Button className={styles.button} onClick={handleCreateClick}>

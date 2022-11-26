@@ -55,7 +55,11 @@ export function Note() {
 
   return (
     <>
-      <Header onSidebarToggle={toggleSidebar} />
+      <Header
+        onSidebarToggle={toggleSidebar}
+        query={''}
+        onQueryChange={() => null}
+      />
 
       <main>
         <Container>

@@ -32,13 +32,19 @@ export function NoteCard(props: INoteCard) {
         <img src={deleteIcon} alt="delete note" />
       </button>
 
-      <h2 className={styles.title}>
-        {note.title || <span className={styles.placeholder}>Title</span>}
-      </h2>
+      <h2
+        className={`${styles.title} ${note.title ? '' : styles.placeholder}`}
+        dangerouslySetInnerHTML={{
+          __html: note.title || 'Title',
+        }}
+      ></h2>
 
-      <p className={styles.text}>
-        {text || <span className={styles.placeholder}>Text</span>}
-      </p>
+      <p
+        className={`${styles.text} ${text ? '' : styles.placeholder}`}
+        dangerouslySetInnerHTML={{
+          __html: text || 'Text',
+        }}
+      ></p>
     </Link>
   )
 }

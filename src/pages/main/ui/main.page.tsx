@@ -13,8 +13,10 @@ export function Main() {
   const { notes, isNotesLoading } = model.useNotes()
   const { isTagsLoading } = model.useLoadTags()
   const { showSidebar, toggleSidebar } = useSidebar()
-  const { filteredNotes, selectedTags, handleTagSelect } =
-    model.useFilteredNotes(notes)
+  const { notesFilteredByTags, selectedTags, handleTagSelect } =
+    model.useFilterByTags(notes)
+  const { notesFilteredBySearch, searchQuery, setSearchQuery } =
+    model.useFilterBySearch(notesFilteredByTags)
 
   if (isTagsLoading || isNotesLoading) {
     return <div>Loading...</div>
@@ -22,12 +24,16 @@ export function Main() {
 
   return (
     <>
-      <Header onSidebarToggle={toggleSidebar} />
+      <Header
+        onSidebarToggle={toggleSidebar}
+        query={searchQuery}
+        onQueryChange={setSearchQuery}
+      />
 
       <main>
         <Container>
           <div className={styles.container}>
-            <NotesList notes={filteredNotes} />
+            <NotesList notes={notesFilteredBySearch} />
           </div>
         </Container>
 
