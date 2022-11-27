@@ -2,12 +2,14 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { useCreateNote } from 'src/features/note/create-note'
 import { Button } from 'src/shared/ui/button'
+import { Icon } from 'src/shared/ui/icon'
 
 import { ISearchBar, SearchBar } from './search-bar'
 
 import styles from './header.module.scss'
 
 import addIcon from 'assets/add.svg'
+import logOutIcon from 'assets/log-out.svg'
 import menuIcon from 'assets/menu.svg'
 
 interface IHeader extends ISearchBar {
@@ -25,11 +27,15 @@ export function Header(props: IHeader) {
     navigate(`/note/${newNoteId}`)
   }
 
+  const handleLogOutClick = () => {
+    navigate('/')
+  }
+
   return (
     <>
       <header className={styles.header}>
         <Button className={styles.button} onClick={onSidebarToggle}>
-          <img src={menuIcon} alt="open/close side menu" />
+          <Icon src={menuIcon} alt="open/close side menu" />
         </Button>
 
         <Link to="/main" className={styles.logo}>
@@ -41,10 +47,12 @@ export function Header(props: IHeader) {
         </div>
 
         <Button className={styles.button} onClick={handleCreateClick}>
-          <img src={addIcon} alt="add new note" />
+          <Icon src={addIcon} alt="add new note" />
         </Button>
 
-        <p>User</p>
+        <Button className={styles.button} onClick={handleLogOutClick}>
+          <Icon src={logOutIcon} alt="log out" />
+        </Button>
       </header>
 
       <div className={styles.spacer} />
