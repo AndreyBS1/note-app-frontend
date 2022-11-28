@@ -11,7 +11,7 @@ import { Header } from 'src/widgets/header'
 import { Sidebar } from 'src/widgets/sidebar'
 
 import * as model from '../model'
-import { TagLabelsList } from './tag-labels-list'
+import { TagsList } from './tags-list'
 
 import styles from './note.module.scss'
 
@@ -84,7 +84,7 @@ export function Note() {
               />
             </div>
             <div className={styles.tagsContainer}>
-              <TagLabelsList tags={form.tags} />
+              <TagsList tags={form.tags} />
             </div>
           </div>
         </Container>
