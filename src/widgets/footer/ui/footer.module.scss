@@ -1,8 +1,26 @@
 .footer {
   width: 100%;
-  padding: 2rem 0;
+  padding: 2rem 3rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   color: var(--light-color);
   background-color: var(--dark-color);
+}
+
+.linkContainer {
+  display: flex;
+}
+
+.link {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.2rem;
+  background-color: var(--light-color);
+
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
 }
