@@ -1,0 +1,46 @@
+@import '../../../shared/styles/mixins.scss';
+
+.container {
+  position: relative;
+  padding: 1rem 3rem;
+  border-bottom: 1px solid var(--dark-color);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.activeContainer {
+  background-color: var(--primary-light);
+}
+
+.tagLabel {
+  font-size: 1.5rem;
+}
+
+.activeTagLabel {
+  padding-left: 1rem;
+}
+
+.tagLabelHover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding-right: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 0;
+  transition: all ease 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.iconButton {
+  padding: 1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

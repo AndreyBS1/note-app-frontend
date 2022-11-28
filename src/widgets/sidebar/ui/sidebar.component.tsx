@@ -1,20 +1,13 @@
 import { useStore } from 'effector-react'
-import { MouseEvent, useState } from 'react'
-import { TagModel } from 'src/entities/tag'
-import { useCreateTag } from 'src/features/tag/create-tag'
+import { MouseEvent } from 'react'
 
+import { TagLabel, TagModel } from 'src/entities/tag'
+import { useCreateTag } from 'src/features/tag/create-tag'
+import { useDeleteTag } from 'src/features/tag/delete-tag'
 import { ITag } from 'src/shared/api'
 import { Button } from 'src/shared/ui/button'
-import { Icon } from 'src/shared/ui/icon'
-
-import { useTagClassName } from '../lib'
-import { TagForm } from './tag-form'
 
 import styles from './sidebar.module.scss'
-
-import deleteIcon from 'assets/delete.svg'
-import editIcon from 'assets/edit.svg'
-import { useDeleteTag } from 'src/features/tag/delete-tag'
 
 interface ISidebar {
   isOpen: boolean
@@ -29,21 +22,14 @@ export function Sidebar(props: ISidebar) {
   const tags = useStore(TagModel.$tags)
   const { handleCreateTag } = useCreateTag()
   const { handleDeleteTag } = useDeleteTag()
-  const { getTagClassName } = useTagClassName(selectedTags)
-  const [showTagForm, setShowTagForm] = useState(false)
 
-  const toggleTagForm = () => {
-    setShowTagForm((prev) => !prev)
+  const checkIsTagSelected = (tag: ITag) => {
+    return selectedTags.some((selectedTag) => selectedTag.id === tag.id)
   }
 
   const stopEventPropagation = (event: MouseEvent) => {
     event.preventDefault()
     event.stopPropagation()
-  }
-
-  const handleEditClick = (event: MouseEvent) => {
-    stopEventPropagation(event)
-    toggleTagForm()
   }
 
   if (!isOpen) {
@@ -55,43 +41,34 @@ export function Sidebar(props: ISidebar) {
       <div className={styles.sidebar} onClick={stopEventPropagation}>
         <div className={styles.container}>
           {tags.length ? (
-            <ul className={styles.list}>
-              {tags.map((tag) => (
-                <li
-                  key={tag.id}
-                  className={getTagClassName('item', tag)}
-                  onClick={() => onTagClick(tag)}
+            <>
+              <div className={styles.createButtonContainer}>
+                <Button
+                  className={styles.createButton}
+                  onClick={handleCreateTag}
                 >
-                  <div className={getTagClassName('itemContent', tag)}>
-                    {showTagForm ? (
-                      <TagForm tag={tag} onSubmit={toggleTagForm} />
-                    ) : (
-                      <>{tag.name}</>
-                    )}
-                  </div>
-                  <div className={styles.itemHover}>
-                    <button
-                      className={styles.editButton}
-                      onClick={handleEditClick}
-                    >
-                      <Icon src={editIcon} alt="edit tag" />
-                    </button>
-                    <button
-                      className={styles.editButton}
-                      onClick={() => handleDeleteTag(tag)}
-                    >
-                      <Icon src={deleteIcon} alt="delete tag" />
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  Create new tag
+                </Button>
+              </div>
+              <ul className={styles.list}>
+                {tags.map((tag) => (
+                  <li key={tag.id}>
+                    <TagLabel
+                      tag={tag}
+                      isSelected={checkIsTagSelected(tag)}
+                      onSelect={onTagClick}
+                      onDelete={handleDeleteTag}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </>
           ) : (
             <div className={styles.empty}>
               <div className={styles.emptyContainer}>
                 <h2 className={styles.emptyText}>You don't have tags yet</h2>
                 <Button
-                  className={styles.emptyButton}
+                  className={styles.createButton}
                   onClick={handleCreateTag}
                 >
                   Create new tag

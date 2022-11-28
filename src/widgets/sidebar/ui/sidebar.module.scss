@@ -28,58 +28,18 @@
   flex-direction: column;
 }
 
+.createButtonContainer {
+  padding: 1rem 3rem;
+}
+
+.createButton {
+  width: 100%;
+}
+
 .list {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-}
-
-.item {
-  position: relative;
-  padding: 1rem 3rem;
-  background-color: transparent;
-  cursor: pointer;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--dark-color);
-  }
-}
-
-.activeItem {
-  background-color: var(--primary-light);
-}
-
-.itemContent {
-  font-size: 1.5rem;
-}
-
-.activeItemContent {
-  padding-left: 1rem;
-}
-
-.itemHover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  padding-right: 2rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  opacity: 0;
-  transition: all ease 0.3s;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.editButton {
-  padding: 1rem;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
 }
 
 .empty {
@@ -95,8 +55,4 @@
 
 .emptyText {
   margin-bottom: 1rem;
-}
-
-.emptyButton {
-  width: 100%;
 }
