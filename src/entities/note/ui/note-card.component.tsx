@@ -50,7 +50,7 @@ export function NoteCard(props: INoteCard) {
           <Icon src={deleteIcon} alt="delete note" />
         </button>
 
-        {note.tags.length && (
+        {note.tags.length ? (
           <div className={styles.tagsBackground}>
             <div className={styles.tagsContainer}>
               {note.tags.map((tag) => (
@@ -61,7 +61,7 @@ export function NoteCard(props: INoteCard) {
               ))}
             </div>
           </div>
-        )}
+        ) : null}
       </div>
     </Link>
   )
