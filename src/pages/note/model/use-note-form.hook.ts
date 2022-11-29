@@ -6,7 +6,7 @@ const initialFormState: INote = {
   id: '',
   title: '',
   text: '',
-  tags: [],
+  tagsIds: [],
   createdAt: 0,
 }
 
