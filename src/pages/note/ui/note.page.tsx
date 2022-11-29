@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ReactTextareaAutosize from 'react-textarea-autosize'
 
@@ -15,12 +15,15 @@ import { TagsList } from './tags-list'
 
 import styles from './note.module.scss'
 
+let timeout: any = null
+
 export function Note() {
   const { id } = useParams()
   const { note, isNoteLoading } = model.useNote(id)
   const { form, setForm, handleChange } = model.useNoteForm(note)
   const { handleUpdateNote } = useUpdateNote()
   const { showSidebar, toggleSidebar } = useSidebar()
+  const [searchQuery, setSearchQuery] = useState('')
 
   const handleTagClick = (selectedTag: ITag) => {
     const isTagSelected = form.tags.some((tag) => tag.id === selectedTag.id)
@@ -38,6 +41,20 @@ export function Note() {
       handleUpdateNote(form)
     }
   }, [form])
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  const handleQueryChange = (query: string) => {
+    setSearchQuery(query)
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    timeout = setTimeout(() => {
+      if (textareaRef.current && query) {
+        model.findTextBySearch(textareaRef.current, query)
+      }
+    }, 500)
+  }
 
   if (isNoteLoading) {
     return <div>Loading...</div>
@@ -57,8 +74,8 @@ export function Note() {
     <>
       <Header
         onSidebarToggle={toggleSidebar}
-        query={''}
-        onQueryChange={() => null}
+        query={searchQuery}
+        onQueryChange={handleQueryChange}
       />
 
       <main>
@@ -76,6 +93,7 @@ export function Note() {
             </div>
             <div className={styles.textContainer}>
               <ReactTextareaAutosize
+                ref={textareaRef}
                 name="text"
                 placeholder="Text"
                 className={`${styles.input} ${styles.text}`}
