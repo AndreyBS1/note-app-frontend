@@ -1,4 +1,3 @@
-import { animated } from '@react-spring/web'
 import { useStore } from 'effector-react'
 import { MouseEvent } from 'react'
 
@@ -7,7 +6,6 @@ import { useCreateTag } from 'src/features/tag/create-tag'
 import { useDeleteTag } from 'src/features/tag/delete-tag'
 import { ITag } from 'src/shared/api'
 import { Button } from 'src/shared/ui/button'
-import { useSidebarAnimation } from '../model'
 
 import styles from './sidebar.module.scss'
 
@@ -34,23 +32,13 @@ export function Sidebar(props: ISidebar) {
     event.stopPropagation()
   }
 
-  const { animation } = useSidebarAnimation(isOpen)
-
   if (!isOpen) {
     return null
   }
 
   return (
-    <animated.div
-      className={styles.background}
-      style={animation.background}
-      onClick={onClose}
-    >
-      <animated.div
-        className={styles.sidebar}
-        onClick={stopEventPropagation}
-        style={animation.sidebar}
-      >
+    <div className={styles.background} onClick={onClose}>
+      <div className={styles.sidebar} onClick={stopEventPropagation}>
         <div className={styles.container}>
           {tags.length ? (
             <>
@@ -89,7 +77,7 @@ export function Sidebar(props: ISidebar) {
             </div>
           )}
         </div>
-      </animated.div>
-    </animated.div>
+      </div>
+    </div>
   )
 }
