@@ -8,6 +8,7 @@ import { useSidebar } from 'src/shared/lib'
 import { Container } from 'src/shared/ui/container'
 import { Footer } from 'src/widgets/footer'
 import { Header } from 'src/widgets/header'
+import { Loading } from 'src/widgets/loading'
 import { Sidebar } from 'src/widgets/sidebar'
 
 import * as model from '../model'
@@ -57,7 +58,7 @@ export function Note() {
   }
 
   if (isNoteLoading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   const isNoteNotExist = !isNoteLoading && note == null

@@ -4,6 +4,7 @@ import { UserCard } from 'src/entities/user'
 import { useCreateUser } from 'src/features/user/create-user'
 import { useDeleteUser } from 'src/features/user/delete-user'
 import { Button } from 'src/shared/ui/button'
+import { Loading } from 'src/widgets/loading'
 
 import * as model from '../model'
 import styles from './auth.module.scss'
@@ -27,7 +28,7 @@ export function Auth() {
 
   const isLoading = isUsersLoading || isUserDeleting || isUserStatsLoading
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   return (
