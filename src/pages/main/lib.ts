@@ -13,7 +13,7 @@ export function filterNotesBySearchQuery(notes: INote[], query: string) {
 
 export function filterNotesByTags(notes: INote[], tags: ITag[]) {
   const filteredNotes = notes.filter((note) => {
-    const noteTagsIdsCode = note.tags.map((tag) => tag.id).join('-')
+    const noteTagsIdsCode = note.tagsIds.join('-')
     const isNoteMatchSelectedTags = tags.every((tag) =>
       noteTagsIdsCode.includes(tag.id)
     )

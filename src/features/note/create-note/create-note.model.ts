@@ -27,7 +27,7 @@ export function useCreateNote() {
       id,
       title: '',
       text: '',
-      tags: [],
+      tagsIds: [],
       createdAt: new Date().getTime(),
     }
     createNote(newNote)

@@ -11,6 +11,7 @@ import { Header } from 'src/widgets/header'
 import { Loading } from 'src/widgets/loading'
 import { Sidebar } from 'src/widgets/sidebar'
 
+import { useNoteTags } from '../lib'
 import * as model from '../model'
 import { TagsList } from './tags-list'
 
@@ -22,19 +23,20 @@ export function Note() {
   const { id } = useParams()
   const { note, isNoteLoading } = model.useNote(id)
   const { form, setForm, handleChange } = model.useNoteForm(note)
+  const { tags } = useNoteTags(form.tagsIds)
   const { handleUpdateNote } = useUpdateNote()
   const { showSidebar, toggleSidebar } = useSidebar()
   const [searchQuery, setSearchQuery] = useState('')
 
   const handleTagClick = (selectedTag: ITag) => {
-    const isTagSelected = form.tags.some((tag) => tag.id === selectedTag.id)
-    let updatedTags: ITag[] = []
+    const isTagSelected = form.tagsIds.some((tagId) => tagId === selectedTag.id)
+    let updatedTagsIds: string[] = []
     if (isTagSelected) {
-      updatedTags = form.tags.filter((tag) => tag.id !== selectedTag.id)
+      updatedTagsIds = form.tagsIds.filter((tagId) => tagId !== selectedTag.id)
     } else {
-      updatedTags = [...form.tags, selectedTag]
+      updatedTagsIds = [...form.tagsIds, selectedTag.id]
     }
-    setForm((prev) => ({ ...prev, tags: updatedTags }))
+    setForm((prev) => ({ ...prev, tagsIds: updatedTagsIds }))
   }
 
   useEffect(() => {
@@ -103,7 +105,7 @@ export function Note() {
               />
             </div>
             <div className={styles.tagsContainer}>
-              <TagsList tags={form.tags} />
+              <TagsList tags={tags} />
             </div>
           </div>
         </Container>
@@ -111,7 +113,7 @@ export function Note() {
         <Sidebar
           isOpen={showSidebar}
           onClose={toggleSidebar}
-          selectedTags={form.tags}
+          selectedTags={tags}
           onTagClick={handleTagClick}
         />
       </main>

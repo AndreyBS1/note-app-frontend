@@ -1,6 +1,6 @@
-import { NoteCard } from 'src/entities/note'
 import { useDeleteNote } from 'src/features/note/delete-note'
 import { INote } from 'src/shared/api'
+import { NoteCard } from 'src/widgets/note-card'
 
 import styles from './notes-list.module.scss'
 

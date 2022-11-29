@@ -9,7 +9,7 @@ export type INote = {
   id: string
   title: string
   text: string
-  tags: ITag[]
+  tagsIds: string[]
   createdAt: number
 }
 

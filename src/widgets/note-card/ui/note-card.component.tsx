@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { INote } from 'src/shared/api'
 import { Icon } from 'src/shared/ui/icon'
 
+import { useNoteCardTags, useShortText } from '../lib'
+
 import styles from './note-card.module.scss'
 
 import deleteIcon from 'assets/delete.svg'
@@ -17,11 +19,8 @@ interface INoteCard {
 export function NoteCard(props: INoteCard) {
   const { note, onDelete } = props
 
-  const textCharLimit = 375
-  const text =
-    note.text.length > textCharLimit
-      ? `${note.text.split('').splice(0, textCharLimit).join('')}...`
-      : note.text
+  const { text } = useShortText(note.text)
+  const { tags } = useNoteCardTags(note.tagsIds)
 
   const handleDelete = (event: MouseEvent) => {
     event.preventDefault()
@@ -50,11 +49,11 @@ export function NoteCard(props: INoteCard) {
           <Icon src={deleteIcon} alt="delete note" />
         </button>
 
-        {note.tags.length ? (
+        {tags.length ? (
           <div className={styles.tagsBackground}>
             <div className={styles.tagsContainer}>
-              {note.tags.map((tag) => (
-                <button className={styles.tag}>
+              {tags.map((tag) => (
+                <button key={tag.id} className={styles.tag}>
                   <Icon src={tagIcon} className={styles.tagIcon} />
                   {tag.name}
                 </button>
