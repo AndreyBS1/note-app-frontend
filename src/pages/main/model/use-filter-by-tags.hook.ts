@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { INote, ITag } from 'src/shared/api'
 
 import { filterNotesByTags } from '../lib'
 
 export function useFilterByTags(notes: INote[]) {
-  const [filteredNotes, setFilteredNotes] = useState(notes)
   const [selectedTags, setSelectedTags] = useState<ITag[]>([])
 
   const handleTagSelect = (selectedTag: ITag) => {
@@ -20,15 +19,15 @@ export function useFilterByTags(notes: INote[]) {
     }
   }
 
-  useEffect(() => {
+  const filteredNotes = useMemo<INote[]>(() => {
     if (notes.length === 0) {
-      return
+      return []
     }
     if (selectedTags.length === 0) {
-      setFilteredNotes(notes)
+      return notes
     } else {
       const updatedFilteredNotes = filterNotesByTags(notes, selectedTags)
-      setFilteredNotes(updatedFilteredNotes)
+      return updatedFilteredNotes
     }
   }, [selectedTags, notes])
 

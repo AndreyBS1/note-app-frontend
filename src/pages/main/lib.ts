@@ -12,16 +12,11 @@ export function filterNotesBySearchQuery(notes: INote[], query: string) {
 }
 
 export function filterNotesByTags(notes: INote[], tags: ITag[]) {
-  let isNoteMatchSelectedTags = true
   const filteredNotes = notes.filter((note) => {
-    tags.forEach((tag) => {
-      if (!isNoteMatchSelectedTags) {
-        return
-      }
-      isNoteMatchSelectedTags = note.tags.some(
-        (noteTag) => noteTag.id === tag.id
-      )
-    })
+    const noteTagsIdsCode = note.tags.map((tag) => tag.id).join('-')
+    const isNoteMatchSelectedTags = tags.every((tag) =>
+      noteTagsIdsCode.includes(tag.id)
+    )
     if (isNoteMatchSelectedTags) {
       return note
     }

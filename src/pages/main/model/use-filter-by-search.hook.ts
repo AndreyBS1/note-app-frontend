@@ -12,6 +12,7 @@ export function useFilterBySearch(notes: INote[]) {
 
   useEffect(() => {
     if (notes.length === 0) {
+      setFilteredNotes([])
       return
     }
     if (!searchQuery) {
