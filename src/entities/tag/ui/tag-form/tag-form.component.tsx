@@ -1,3 +1,5 @@
+import { FocusEvent } from 'react'
+
 import { useUpdateTag } from 'src/features/tag/update-tag'
 import { ITag } from 'src/shared/api'
 import { useForm } from 'src/shared/lib'
@@ -13,6 +15,10 @@ export function TagForm(props: ITagForm) {
   const { form, handleChange } = useForm(tag)
   const { handleUpdateTag } = useUpdateTag()
 
+  const handleFocus = (event: FocusEvent<HTMLInputElement, Element>) => {
+    event.target.select()
+  }
+
   const handleSubmit = () => {
     handleUpdateTag(form)
     onSubmit()
@@ -26,6 +32,7 @@ export function TagForm(props: ITagForm) {
         autoFocus
         value={form.name}
         onChange={handleChange}
+        onFocus={handleFocus}
         onBlur={handleSubmit}
       />
     </form>
