@@ -1,10 +1,13 @@
+import { MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
+
 import { INote } from 'src/shared/api'
+import { Icon } from 'src/shared/ui/icon'
 
 import styles from './note-card.module.scss'
 
 import deleteIcon from 'assets/delete.svg'
-import { MouseEvent } from 'react'
+import tagIcon from 'assets/tag.svg'
 
 interface INoteCard {
   note: INote
@@ -28,10 +31,6 @@ export function NoteCard(props: INoteCard) {
 
   return (
     <Link to={`/note/${note.id}`} className={styles.card}>
-      <button className={styles.deleteButton} onClick={handleDelete}>
-        <img src={deleteIcon} alt="delete note" />
-      </button>
-
       <h2
         className={`${styles.title} ${note.title ? '' : styles.placeholder}`}
         dangerouslySetInnerHTML={{
@@ -45,6 +44,25 @@ export function NoteCard(props: INoteCard) {
           __html: text || 'Text',
         }}
       ></p>
+
+      <div className={styles.hover}>
+        <button className={styles.deleteButton} onClick={handleDelete}>
+          <Icon src={deleteIcon} alt="delete note" />
+        </button>
+
+        {note.tags.length && (
+          <div className={styles.tagsBackground}>
+            <div className={styles.tagsContainer}>
+              {note.tags.map((tag) => (
+                <button className={styles.tag}>
+                  <Icon src={tagIcon} className={styles.tagIcon} />
+                  {tag.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </Link>
   )
 }
